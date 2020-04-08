@@ -33,11 +33,12 @@ def recieve_message(client_socket):
         if not len(message_header):
             # if we don't get any data the client closes the connection
             return False
-            message_legth = int(message_header.decode("utf-8").strip())
+            message_legth = int(message_header.decode('utf-8').strip())
             return {'header':message_header,'data':client_socket.socket.recv(message_legth)}
 
     except:
         return False
+
 
 while True:
 #                                                  sockets that we are going read| write | or error on
