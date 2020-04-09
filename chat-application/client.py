@@ -26,3 +26,17 @@ while True:
         message = message.encode('utf-8')
         message_header = f"{len(message):<{HEADER_LENGTH}}".encode('utf-8')
         client_socket.send(message_header + message)
+
+        #  a while True loop that will infinitely attempt to receive any incoming messages. Once 
+        # there are no more to receive, we will get an error. We'll handle for other expected errors,
+        #  but if we get the specific error we're 
+        # expecting to just be out of messages, then break the loop cleanly and repeat.
+        while True:
+
+            username_header = client_socket.recv(HEADER_LENGTH)
+
+            # If we received no data, server closes a connection, for example
+            #  using socket.close() or socket.shutdown(socket.SHUT_RDWR)
+            if not len(username_header):
+                print('Connection closed by the server')
+                sys.exit()
