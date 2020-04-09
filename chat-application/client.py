@@ -40,3 +40,13 @@ while True:
             if not len(username_header):
                 print('Connection closed by the server')
                 sys.exit()
+                # get the username
+            username_length = int(username_header.decode('utf-8').strip())
+            username = client_socket.recv(username_length).decode('utf-8')
+            # get the message
+            message_header = client_socket.recv(HEADER_LENGTH)
+            message_length = int(message_header.decode('utf-8').strip())
+            message = client_socket.recv(message_length).decode('utf-8')
+            # output to the screen
+            print(f'{username} > {message}')
+            
